@@ -50,6 +50,14 @@ if __name__ == "__main__":
                             line = line[:-1] + "</li>\n"
                             html_lines.insert(-1, line)
                             continue
+                        elif (split[0] == "*"):
+                            if (html_lines[-1][0:5] != "</ol>"):
+                                html_lines.append("<ol>\n")
+                                html_lines.append("</ol>\n")
+                            line = line.replace("- ", "<li>")
+                            line = line[:-1] + "</li>\n"
+                            html_lines.insert(-1, line)
+                            continue
                         html_lines.append(line)
                     new_file.writelines(html_lines)
             exit(0)
