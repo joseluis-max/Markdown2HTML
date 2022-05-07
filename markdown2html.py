@@ -54,7 +54,7 @@ if __name__ == "__main__":
                             if (html_lines[-1][0:5] != "</ol>"):
                                 html_lines.append("<ol>\n")
                                 html_lines.append("</ol>\n")
-                            line = line.replace("- ", "<li>")
+                            line = line.replace("* ", "<li>")
                             line = line[:-1] + "</li>\n"
                             html_lines.insert(-1, line)
                             continue
