@@ -109,6 +109,6 @@ if __name__ == "__main__":
                                 string = l[i+2: counter]
                                 result = hashlib.md5(string.encode())
                                 result = result.hexdigest()
-                                l = l[:i] + result + l[counter+3:]
+                                l = l[:3] + "\n" + l[3:i] + result + l[counter+3:4] + "\n</p>\n"
                         new_file.write(l)
             exit(0)
