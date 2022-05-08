@@ -5,7 +5,7 @@
         First argument is the name of the Markdown file
         Second argument is the output file name
 """
-from enum import Flag
+from dataclasses import replace
 from os.path import exists
 from sys import argv, stderr
 
@@ -23,6 +23,9 @@ if __name__ == "__main__":
                 with open(argv[2], mode="w") as new_file:
                     html_lines = []
                     for line in file:
+                        if (line[:2] == "**" and line[-3:-1] == "**"):
+                            html_lines.append("<b>" + line[2:-3] + "</b>\n")
+                            continue
                         split = line.split(" ")
                         if (split[0] == "#"):
                             line = line.replace("# ", "<h1>")
@@ -68,5 +71,23 @@ if __name__ == "__main__":
                                     continue
                                 line = "<p>" + line[:-1] + "</p>\n"
                         html_lines.append(line)
-                    new_file.writelines(html_lines)
+                    
+                    flag = True
+                    for l in html_lines:
+                        for i in range(len(l)):
+                            if (l[i] == "*" and l[i + 1] == "*"):
+                                if (flag):
+                                    flag = False
+                                    l = l[:i] + "<b>" + l[i+2:]
+                                else:
+                                    flag = True
+                                    l = l[:i] + "</b>" + l[i+2:]
+                            if (l[i] == "_" and l[i + 1] == "_"):
+                                if (flag):
+                                    flag = False
+                                    l = l[:i] + "<em>" + l[i+2:]
+                                else:
+                                    flag = True
+                                    l = l[:i] + "</em>" + l[i+2:]
+                        new_file.write(l)
             exit(0)
