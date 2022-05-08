@@ -76,6 +76,7 @@ if __name__ == "__main__":
                         html_lines.append(line)
                     
                     flag = True
+                    flag1 = True
                     for l in html_lines:
                         for i in range(len(l)):
                             if (l[i] == "*" and l[i + 1] == "*"):
@@ -86,11 +87,11 @@ if __name__ == "__main__":
                                     flag = True
                                     l = l[:i] + "</b>" + l[i+2:]
                             if (l[i] == "_" and l[i + 1] == "_"):
-                                if (flag):
-                                    flag = False
+                                if (flag1):
+                                    flag1 = False
                                     l = l[:i] + "<em>" + l[i+2:]
                                 else:
-                                    flag = True
+                                    flag1 = True
                                     l = l[:i] + "</em>" + l[i+2:]
                         new_file.write(l)
             exit(0)
