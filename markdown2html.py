@@ -26,6 +26,9 @@ if __name__ == "__main__":
                         if (line[:2] == "**" and line[-3:-1] == "**"):
                             html_lines.append("<b>" + line[2:-3] + "</b>\n")
                             continue
+                        if (line[:2] == "__" and line[-3:-1] == "__"):
+                            html_lines.append("<em>" + line[2:-3] + "</em>\n")
+                            continue
                         split = line.split(" ")
                         if (split[0] == "#"):
                             line = line.replace("# ", "<h1>")
