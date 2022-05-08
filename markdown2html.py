@@ -78,7 +78,7 @@ if __name__ == "__main__":
                                 elif (html_lines[-1][-5:] == "</p>\n"):
                                     html_lines[-1] = html_lines[-1][:3] + "\n" + html_lines[-1][3:-5] + "\n<br />\n" + line[:-1] + "\n</p>\n"
                                     continue
-                                line = "<p>" + line[:-1] + "</p>\n"
+                                line = "<p>\n" + line[:-1] + "\n</p>\n"
                         html_lines.append(line)
                     
                     flag = True
@@ -109,6 +109,6 @@ if __name__ == "__main__":
                                 string = l[i+2: counter]
                                 result = hashlib.md5(string.encode())
                                 result = result.hexdigest()
-                                l = l[:3] + "\n" + l[3:i] + result + l[counter+3:4] + "\n</p>\n"
+                                l = l[:i] + result + l[counter+3:]
                         new_file.write(l)
             exit(0)
