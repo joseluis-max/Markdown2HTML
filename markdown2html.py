@@ -60,12 +60,13 @@ if __name__ == "__main__":
                             continue
                         else:
                             if (split[0] != "\n"):
-                                print(html_lines[-1][-5:])
-                                if (html_lines[-1][-5:] == "</p>\n"):
-                                    html_lines[-1] = html_lines[-1][:3] + "\n" + html_lines[-1][3:-5] + "\n<br />\n" + line + "</p>\n"
+                                if (html_lines[-1][-6:] == "\n</p>\n"):
+                                    html_lines[-1] = html_lines[-1][:-6] + "\n<br />\n" + line + "</p>\n"
+                                    continue
+                                elif (html_lines[-1][-5:] == "</p>\n"):
+                                    html_lines[-1] = html_lines[-1][:3] + "\n" + html_lines[-1][3:-5] + "\n<br />\n" + line[:-1] + "\n</p>\n"
                                     continue
                                 line = "<p>" + line[:-1] + "</p>\n"
-
                         html_lines.append(line)
                     new_file.writelines(html_lines)
             exit(0)
