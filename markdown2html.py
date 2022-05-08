@@ -102,11 +102,9 @@ if __name__ == "__main__":
                                     l = l[:i] + "</em>" + l[i+2:]
                             if (l[i] == "[" and l[i + 1] == "["):
                                 counter = i
-
                                 while (l[counter] != "]" and l[counter+1] != "]"):
                                     counter += 1
-
-                                string = l[i+2: counter]
+                                string = l[i+2: counter+1]
                                 result = hashlib.md5(string.encode())
                                 result = result.hexdigest()
                                 l = l[:i] + result + l[counter+3:]
