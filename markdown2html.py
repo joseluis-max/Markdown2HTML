@@ -5,9 +5,9 @@
         First argument is the name of the Markdown file
         Second argument is the output file name
 """
-from dataclasses import replace
 from os.path import exists
 from sys import argv, stderr
+import hashlib
 
 
 if __name__ == "__main__":
@@ -25,6 +25,12 @@ if __name__ == "__main__":
                     for line in file:
                         if (line[:2] == "**" and line[-3:-1] == "**"):
                             html_lines.append("<b>" + line[2:-3] + "</b>\n")
+                            continue
+                        if (line[:2] == "((" and line[-3:-1] == "))"):
+                            line = "<p>\n" + line[2:-3] + "\n</p>\n"
+                            line = line.replace("c", "")
+                            line = line.replace("C", "")
+                            html_lines.append(line)
                             continue
                         # if (line[:2] == "__" and line[-3:-1] == "__"):
                         #     html_lines.append("<em>" + line[2:-3] + "</em>\n")
@@ -77,6 +83,7 @@ if __name__ == "__main__":
                     
                     flag = True
                     flag1 = True
+                    flag2 = True
                     for l in html_lines:
                         for i in range(len(l)):
                             if (l[i] == "*" and l[i + 1] == "*"):
@@ -93,5 +100,15 @@ if __name__ == "__main__":
                                 else:
                                     flag1 = True
                                     l = l[:i] + "</em>" + l[i+2:]
+                            if (l[i] == "[" and l[i + 1] == "["):
+                                counter = i
+
+                                while (l[counter] != "]" and l[counter+1] != "]"):
+                                    counter += 1
+
+                                string = l[i+2: counter]
+                                result = hashlib.md5(string.encode())
+                                result = result.hexdigest()
+                                l = l[:i] + result + l[counter+3:]
                         new_file.write(l)
             exit(0)
