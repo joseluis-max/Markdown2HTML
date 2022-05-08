@@ -27,7 +27,7 @@ if __name__ == "__main__":
                             html_lines.append("<b>" + line[2:-3] + "</b>\n")
                             continue
                         if (line[:2] == "((" and line[-3:-1] == "))"):
-                            line = "<p>\n" + line[2:-3] + "\n</p>\n"
+                            line = "<p>\n" + line[2:-3] + "\n</p>"
                             line = line.replace("c", "")
                             line = line.replace("C", "")
                             html_lines.append(line)
@@ -57,7 +57,7 @@ if __name__ == "__main__":
                         elif (split[0] == "-"):
                             if (html_lines[-1][0:5] != "</ul>"):
                                 html_lines.append("<ul>\n")
-                                html_lines.append("</ul>\n")
+                                html_lines.append("</ul>")
                             line = line.replace("- ", "<li>")
                             line = line[:-1] + "</li>\n"
                             html_lines.insert(-1, line)
@@ -65,7 +65,7 @@ if __name__ == "__main__":
                         elif (split[0] == "*"):
                             if (html_lines[-1][0:5] != "</ol>"):
                                 html_lines.append("<ol>\n")
-                                html_lines.append("</ol>\n")
+                                html_lines.append("</ol>")
                             line = line.replace("* ", "<li>")
                             line = line[:-1] + "</li>\n"
                             html_lines.insert(-1, line)
@@ -73,12 +73,12 @@ if __name__ == "__main__":
                         else:
                             if (split[0] != "\n"):
                                 if (html_lines[-1][-6:] == "\n</p>\n"):
-                                    html_lines[-1] = html_lines[-1][:-6] + "\n<br />\n" + line + "</p>\n"
+                                    html_lines[-1] = html_lines[-1][:-6] + "\n<br />\n" + line + "</p>"
                                     continue
                                 elif (html_lines[-1][-5:] == "</p>\n"):
-                                    html_lines[-1] = html_lines[-1][:3] + "\n" + html_lines[-1][3:-5] + "\n<br />\n" + line[:-1] + "\n</p>\n"
+                                    html_lines[-1] = html_lines[-1][:3] + "\n" + html_lines[-1][3:-5] + "\n<br />\n" + line[:-1] + "\n</p>"
                                     continue
-                                line = "<p>\n" + line[:-1] + "\n</p>\n"
+                                line = "<p>\n" + line[:-1] + "\n</p>"
                         html_lines.append(line)
                     
                     flag = True
